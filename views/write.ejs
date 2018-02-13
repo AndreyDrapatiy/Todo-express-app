@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ToDo</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+
+</head>
+<body>
+
+<div class="main">
+    <div class="top-bar">
+        <button class="hamburger hamburger--spin toggler" id="sidebar-open-close">
+        <span class="hamburger-box">
+            <span class="hamburger-inner" id="hamburger-inner"></span>
+        </span>
+        </button>
+    </div>
+    <div class="sidebar sidebar-close" id="sidebar">
+        <div class="sidebar-header"></div>
+        <ul>
+            <li id="showAll"><i class="material-icons">assignment</i>All</li>
+            <li id="showActive"><i class="material-icons">assignment_late</i>Active</li>
+            <li id="showCompleted"><i class="material-icons">assignment_turned_in</i>Completed</li>
+            <li id="clearAll"><i class="material-icons">delete_forever</i>Clear All</li>
+        </ul>
+    </div>
+    <div class="new-item-input" id="new-item-input">
+        <form action="/write" method="post">
+            <div class="group">
+                <input type="text" name="title"  id="title">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Title</label>
+            </div>
+            <div class="group">
+                <input type="text" name="content" placeholder="Content" id="content">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Content</label>
+            </div>
+            <div class="new-item-btns">
+                <button type="submit" id="add">Add</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script src="js/main.js"></script>
+
+</body>
+</html>
