@@ -27,34 +27,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
-app.use((req, res, next) => {
-    const err = new Error(`Not Found ${req.path}`)
-    err.status = 404
-next(err)
-})
-app.use((error, req, res, next) => {
-    if (error) {
-        console.log(error)
-        return res.status(400).json({error})
-    }
-    next(error)
-})
-app.use((err, req, res, next) => {
-    res.status(err.status || 500)
-res.render('error', {
-    message: err.message,
-    error: {}
-})
-})
-
-
 app.get("/", function (req, res) {
-    // Items.find({}, function (err, result) {
-    //     if (!err) {
-    //         res.render('index.ejs', {result: result});
-    //     }
-    // });
-    res.send("hello")
+    Items.find({}, function (err, result) {
+        if (!err) {
+            res.render('index.ejs', {result: result});
+        }
+    });
 });
 
 
@@ -134,7 +112,7 @@ MongoClient.connect('mongodb://root:root@ds133136.mlab.com:33136/heroku_5f0kbkt5
         return console.log(err)
     }
 
-    app.listen( 3000, function () {   // проект не стартует пока нет подключения к db
+    app.listen( 'whispering-tor-79458.herokuapp.com', function () {   // проект не стартует пока нет подключения к db
         console.log("Working on port 3000")
     });
 });
