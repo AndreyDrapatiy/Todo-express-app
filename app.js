@@ -4,7 +4,7 @@ var app = express();
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/items', function (err) {
+mongoose.connect('mongodb://root:root@ds133136.mlab.com:33136/heroku_5f0kbkt5', function (err) {
     if (err) throw err;
     console.log('Successfully connected');
 });
@@ -19,7 +19,7 @@ var userSchema = mongoose.Schema({ // модель записи в bd
 var Items = mongoose.model("Items", userSchema);
 
 
-// не забыть закинуть монго в package
+
 
 app.use(express.static(__dirname + '/public'));
 
@@ -106,7 +106,7 @@ app.post("/saveEdited/:id", function (req, res) {
 
 
 
-MongoClient.connect('mongodb://localhost:27017/app', function (err) {
+MongoClient.connect('mongodb://root:root@ds133136.mlab.com:33136/heroku_5f0kbkt5', function (err) {
 
     if (err){
         return console.log(err)
