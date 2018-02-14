@@ -28,11 +28,12 @@ app.use(bodyParser.json());
 
 
 app.get("/", function (req, res) {
-    Items.find({}, function (err, result) {
-        if (!err) {
-            res.render('index.ejs', {result: result});
-        }
-    });
+    // Items.find({}, function (err, result) {
+    //     if (!err) {
+    //         res.render('index.ejs', {result: result});
+    //     }
+    // });
+    res.send("hello")
 });
 
 
