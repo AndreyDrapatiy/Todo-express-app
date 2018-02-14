@@ -112,7 +112,9 @@ MongoClient.connect('mongodb://root:root@ds133136.mlab.com:33136/heroku_5f0kbkt5
         return console.log(err)
     }
 
-    app.listen( 'whispering-tor-79458.herokuapp.com', function () {   // проект не стартует пока нет подключения к db
-        console.log("Working on port 3000")
+    var port = process.env.PORT || 5000;
+    app.listen(port, function() {
+        console.log("Listening on " + port);
     });
+
 });
