@@ -46,8 +46,9 @@ app.get("/write", function (req, res) {
 app.post("/write", function (req, res) {
     var title = req.body.title;
     var content = req.body.content;
+    var status = 'active';
 
-    Items.create({title: title, content: content}, function (err) {
+    Items.create({title: title, content: content, status: status}, function (err) {
         if (err) return console.log(err);
         console.log("Сохранен объект item");
     });
@@ -83,6 +84,9 @@ app.get("/edit/:id", function (req, res) {
 
 
 });
+
+
+
 
 
 app.post("/saveEdited/:id", function (req, res) {
