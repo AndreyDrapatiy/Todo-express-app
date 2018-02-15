@@ -21,24 +21,13 @@
         </button>
     </div>
     <div class="items-active" id="items-all">
-        <% for (var i = 0; i < result.length; i++){ %>
-        <div class="todo-item <%= result[i].status %>">
-            <div class="todo-item-title"><%= result[i].title %></div>
-            <div class="todo-item-text">
-                <%= result[i].content %>
-            </div>
-            <div class="actions-time">
-                <div class="time">
-                    <a href="/item/<%= result[i]._id %>">Read More</a>
-                </div>
-                <ul class="done-remove-btn">
-                    <li id="complet-btn"><a href="/done/<%= result[i]._id %>"><i class="material-icons">&#xE876;</i></a></li>
-                    <li id="delete-btn"><a href="/edit/<%= result[i]._id %>"><i class="material-icons">&#xE22B;</i></a></li>
-                    <li id="delete-btn"><a href="/remove/<%= result[i]._id %>"><i class="material-icons">&#xE872;</i></a></li>
-                </ul>
+        <div class="todo-item <%= result.status %>">
+            <div class="todo-item-title"><%= result.title %></div>
+            <div class="todo-item-full-text">
+                <%= result.content %>
             </div>
         </div>
-        <% } %>
+
     <div class="sidebar sidebar-close" id="sidebar">
         <div class="sidebar-header"></div>
         <ul>

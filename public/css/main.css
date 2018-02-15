@@ -367,11 +367,23 @@ body {
       .main .items-active .todo-item .todo-item-text {
         font-size: 16px;
         line-height: 1.7;
+        max-height: 27px;
         text-align: left;
         color: #595959;
         margin: 10px 0 10px 0;
         overflow: hidden;
         word-wrap: break-word; }
+      .main .todo-item-full-text{
+          font-size: 16px;
+          line-height: 1.7;
+          max-height: 100%;
+          min-height: 100%;
+          text-align: left;
+          color: #595959;
+          margin: 10px 0 10px 0;
+          overflow: visible;
+          word-wrap: break-word;
+      }
       .main .items-active .todo-item .actions-time .time {
         display: inline-block;
         width: 67%;

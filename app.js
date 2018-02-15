@@ -146,6 +146,19 @@ app.get("/done/:id", function (req, res) {
 });
 
 
+app.get("/item/:id", function (req, res) {
+
+    var id = req.params.id;
+
+    Items.findOne({_id: id}, function (err, result) {
+        if (!err) {
+            res.render('single.ejs', {result: result});
+        }
+    });
+
+
+});
+
 
 MongoClient.connect('mongodb://root:root@ds133136.mlab.com:33136/heroku_5f0kbkt5', function (err) {
 
