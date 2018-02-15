@@ -1,3 +1,14 @@
+a{
+  text-decoration: none;
+  color: #757575;
+}
+a:hover{
+  color: #757575;
+}
+a:active{
+  color: #757575;
+}
+
 .hamburger {
   display: inline-block;
   cursor: pointer;

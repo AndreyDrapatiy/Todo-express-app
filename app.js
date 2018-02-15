@@ -41,9 +41,25 @@ app.get("/write", function (req, res) {
     res.render("write.ejs")
 });
 
+app.get("/active", function (req, res) {
+    Items.find({status: 'active'}, function (err, result) {
+        if (!err) {
+            res.render('active.ejs', {result: result});
+        }
+    });
+});
+
+app.get("/completed", function (req, res) {
+    Items.find({status: 'done'}, function (err, result) {
+        if (!err) {
+            res.render('completed.ejs', {result: result});
+        }
+    });
+});
 
 //сохранение нового item в базу/ redirect
 app.post("/write", function (req, res) {
+
     var title = req.body.title;
     var content = req.body.content;
     var status = 'active';
@@ -87,8 +103,6 @@ app.get("/edit/:id", function (req, res) {
 
 
 
-
-
 app.post("/saveEdited/:id", function (req, res) {
 
     var id = req.params.id;
@@ -106,6 +120,23 @@ app.post("/saveEdited/:id", function (req, res) {
 
     res.redirect('/');
 
+});
+
+
+app.get("/done/:id", function (req, res) {
+
+    var id = req.params.id;
+
+    var query = {_id: id};
+
+    var newValues = {$set: {status: "done"}};
+
+    Items.updateOne(query, newValues, function (err) {
+        if (err) throw err;
+    });
+
+
+    res.redirect('/');
 });
 
 
