@@ -9,6 +9,17 @@ a:active{
   color: #757575;
 }
 
+.done {
+  border-right: 2px solid;
+  border-color: #4CAF50;
+  opacity: 0.5;
+  transition: 0.3s; }
+
+.active{
+  border-right: 2px solid;
+  border-color: #f50057;
+}
+
 .hamburger {
   display: inline-block;
   cursor: pointer;
@@ -346,8 +357,7 @@ body {
       text-wrap: normal;
       padding: 15px;
       cursor: default;
-      border-right: 2px solid;
-      border-color: #f50057;
+
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
       .main .items-active .todo-item .todo-item-title {
         font-size: 16px;

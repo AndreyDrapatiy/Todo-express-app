@@ -22,7 +22,7 @@
     </div>
     <div class="items-active" id="items-all">
         <% for (var i = 0; i < result.length; i++){ %>
-        <div class="todo-item todo-item-active">
+        <div class="todo-item <%= result[i].status %>">
             <div class="todo-item-title"><%= result[i].title %></div>
             <div class="todo-item-text">
                 <%= result[i].content %>
@@ -32,7 +32,7 @@
                     <a href="/item/<%= result[i].title %>">Read More</a>
                 </div>
                 <ul class="done-remove-btn">
-                    <li id="complet-btn" onclick="moveToCompleted(this)"><a href="/done/<%= result[i]._id %>"><i class="material-icons">&#xE876;</i></a></li>
+                    <li id="complet-btn"><a href="/done/<%= result[i]._id %>"><i class="material-icons">&#xE876;</i></a></li>
                     <li id="delete-btn"><a href="/edit/<%= result[i]._id %>"><i class="material-icons">&#xE22B;</i></a></li>
                     <li id="delete-btn"><a href="/remove/<%= result[i]._id %>"><i class="material-icons">&#xE872;</i></a></li>
                 </ul>
@@ -42,10 +42,10 @@
     <div class="sidebar sidebar-close" id="sidebar">
         <div class="sidebar-header"></div>
         <ul>
-            <li id="showAll"><a href="/">All</a></li>
-            <li id="showActive"><a href="/active">Active</a></li>
-            <li id="showCompleted"><a href="/completed">Completed</a></li>
-            <li id="clearAll">Clear All</li>
+            <a href="/"><li id="showAll"><i class="material-icons">&#xE85D;</i>All</li></a>
+            <a href="/active"><li id="showActive"><i class="material-icons">&#xE85F;</i>Active</li></a>
+            <a href="/completed"><li id="showCompleted"><i class="material-icons">&#xE862;</i>Completed</li></a>
+            <a href="/removeall"><li id="clearAll"><i class="material-icons">&#xE92B;</i>Clear All</li></a>
         </ul>
     </div>
     <a href="/write" id="createNew"><i class="material-icons">&#xE150;</i></a>

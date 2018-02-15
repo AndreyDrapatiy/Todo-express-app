@@ -88,6 +88,12 @@ app.get("/remove/:id", function (req, res) {
 
 
 
+app.get("/removeall", function (req, res) {
+
+    Items.remove({});
+    res.redirect('/');
+});
+
 app.get("/edit/:id", function (req, res) {
 
     var id = req.params.id;
@@ -147,7 +153,7 @@ MongoClient.connect('mongodb://root:root@ds133136.mlab.com:33136/heroku_5f0kbkt5
         return console.log(err)
     }
 
-    var port = process.env.PORT || 5000;
+    var port = process.env.PORT || 3000;
     app.listen(port, function() {
         console.log("Listening on " + port);
     });
