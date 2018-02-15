@@ -7,8 +7,8 @@
     <title>ToDo</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://whispering-tor-79458.herokuapp.com/public/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
 <style>
     a{
         text-decoration: none;
@@ -510,7 +510,111 @@
     </div>
 
 </div>
-<script src="js/main.js"></script>
+<script>
+    document.getElementById('sidebar-open-close').addEventListener('click', function (el) {
+
+        el.preventDefault();
+        var hamburger = document.getElementById('sidebar-open-close');
+        var sideClass = document.getElementById('sidebar').classList;
+        var innerColor = document.getElementById('hamburger-inner');
+        if (sideClass.contains('sidebar-close')) {
+            sideClass.remove('sidebar-close');
+            sideClass.add('sidebar-open');
+            innerColor.style.backgroundColor = "#f50057";
+            hamburger.classList.toggle('is-active');
+        }
+        else if (sideClass.contains('sidebar-open')) {
+            sideClass.remove('sidebar-open');
+            sideClass.add('sidebar-close');
+            innerColor.style.backgroundColor = "#fff";
+            hamburger.classList.toggle('is-active');
+
+
+        }
+    });
+    document.getElementById('sidebar').addEventListener('click', function () {
+        var hamburger = document.getElementById('sidebar-open-close');
+        var sideClass = document.getElementById('sidebar').classList;
+        var innerColor = document.getElementById('hamburger-inner');
+        if (sideClass.contains('sidebar-open')) {
+            sideClass.remove('sidebar-open');
+            sideClass.add('sidebar-close');
+            innerColor.style.backgroundColor = "#fff";
+            hamburger.classList.toggle('is-active');
+
+        }
+    });
+    // sidebar opensclose//
+
+
+    //toggle view//
+
+    function createNew() {
+        document.getElementById('new-item-input').style.display = 'block';
+        document.getElementById('items-all').style.display = 'none';
+        document.getElementById('createNew').style.display = 'none';
+    }
+
+    function closeCreateNew() {
+        document.getElementById('new-item-input').style.display = 'none';
+        document.getElementById('items-all').style.display = 'block';
+        document.getElementById('createNew').style.display = 'inline-block';
+    }
+
+
+    function addValues() {
+        var titleNew = document.getElementById('titleNew').value;
+        var contentNew = document.getElementById('contentNew').value;
+
+        function formatDate(date) {
+
+            var dd = date.getDate();
+            if (dd < 10) dd = '0' + dd;
+
+            var mm = date.getMonth() + 1;
+            if (mm < 10) mm = '0' + mm;
+
+            var yy = date.getFullYear() % 100;
+            if (yy < 10) yy = '0' + yy;
+
+            return dd + '.' + mm + '.' + yy;
+        }
+
+        var thisItemDate = new Date(2014, 0, 30);
+
+        var template = '<div class="todo-item todo-item-active">' +
+            '<div class="todo-item-title">' + titleNew + '</div>' +
+            '<div class="todo-item-text">' + contentNew + '</div>' +
+            '<div class="actions-time">' +
+            '<div class="time">' + formatDate(thisItemDate) + '</div>' +
+            '<ul  class="done-remove-btn">' +
+            '<li  id = "complet-btn" onclick="moveToCompleted(this)"><i class="material-icons">&#xE876;</i></li>' +
+            '<li  id = "delete-btn" onclick="removeItem(this)"><i class="material-icons">&#xE15B;</i></li>' +
+            '</ul>' +
+            '</div>';
+        if (contentNew !== '') {
+            document.getElementById('items-all').innerHTML += template;
+            document.getElementById('titleNew').value = '';
+            document.getElementById('contentNew').value = '';
+            document.getElementById('new-item-input').style.display = 'none';
+            document.getElementById('items-all').style.display = 'block';
+            document.getElementById('createNew').style.display = 'inline-block';
+        }
+        else {
+            alert("Please enter an TODO content to continue.")
+        }
+
+    }
+
+
+
+    //remove item//
+    function removeItem(param) {
+        param.parentNode.parentNode.parentNode.remove()
+    }
+
+
+</script>
 
 </body>
 </html>
