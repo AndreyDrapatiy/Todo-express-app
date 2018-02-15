@@ -9,7 +9,467 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
     <link rel="stylesheet" type="text/css" href="https://whispering-tor-79458.herokuapp.com/public/css/main.css" />
+<style>
+    a{
+        text-decoration: none;
+        color: #757575;
+    }
+    a:hover{
+        color: #757575;
+    }
+    a:active{
+        color: #757575;
+    }
 
+    .done {
+        border-right: 2px solid;
+        border-color: #4CAF50;
+        opacity: 0.5;
+        transition: 0.3s; }
+
+    .active{
+        border-right: 2px solid;
+        border-color: #f50057;
+    }
+
+    .hamburger {
+        display: inline-block;
+        cursor: pointer;
+        outline: none;
+        transition-property: opacity, filter;
+        transition-duration: 0.15s;
+        transition-timing-function: linear;
+        font: inherit;
+        color: inherit;
+        text-transform: none;
+        background-color: transparent;
+        border: 0;
+        margin: 0;
+        z-index: 10;
+        overflow: visible; }
+
+    .hamburger-box {
+        width: 25px;
+        height: 25px;
+        display: inline-block;
+        text-align: center;
+        z-index: 10;
+        position: relative; }
+
+    .hamburger-inner {
+        display: block;
+        top: 50%;
+        background-color: #fff;
+        margin-top: -2px; }
+
+    .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+        width: 25px;
+        height: 2px;
+        border-radius: 2px;
+        position: absolute;
+        transition-property: transform;
+        transition-duration: 0.15s;
+        transition-timing-function: ease; }
+
+    .hamburger-inner::before, .hamburger-inner::after {
+        background-color: inherit;
+        content: "";
+        display: block; }
+
+    .hamburger-inner::before {
+        top: -7px; }
+
+    .hamburger-inner::after {
+        bottom: -7px; }
+
+    .hamburger--spin {
+        padding: 20px  29px 20px 29px; }
+
+    .hamburger--spin .hamburger-inner {
+        transition-duration: 0.22s;
+        transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+    .hamburger--spin .hamburger-inner::before {
+        transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in; }
+
+    .hamburger--spin .hamburger-inner::after {
+        transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+    .hamburger--spin.is-active .hamburger-inner {
+        transform: rotate(225deg);
+        transition-delay: 0.12s;
+        transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+    .hamburger--spin.is-active .hamburger-inner::before {
+        top: 0;
+        opacity: 0;
+        transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out; }
+
+    .hamburger--spin.is-active .hamburger-inner::after {
+        bottom: 0;
+        transform: rotate(-90deg);
+        transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+    .hamburger--spin-r .hamburger-inner {
+        transition-duration: 0.22s;
+        transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+    .hamburger--spin-r .hamburger-inner::before {
+        transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in; }
+
+    .hamburger--spin-r .hamburger-inner::after {
+        transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+    .hamburger--spin-r.is-active .hamburger-inner {
+        transform: rotate(-225deg);
+        transition-delay: 0.12s;
+        transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+    .hamburger--spin-r.is-active .hamburger-inner::before {
+        top: 0;
+        opacity: 0;
+        transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out; }
+
+    .hamburger--spin-r.is-active .hamburger-inner::after {
+        bottom: 0;
+        transform: rotate(90deg);
+        transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+    #createNew {
+        border: none;
+        cursor: pointer;
+        color: white;
+        padding: 15px 17px;
+        font-size: 18px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        background: #3F51B5;
+        border-radius: 50%;
+        outline: none; }
+
+    #createNew {
+        position: absolute;
+        left: 370px;
+        top: 460px;
+        overflow: hidden; }
+    #createNew i {
+        position: relative;
+        top: 2px; }
+
+    #create:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        opacity: 0;
+        border-radius: 100%;
+        transform: scale(1, 1) translate(-50%);
+        transform-origin: 50% 50%; }
+
+    @keyframes ripple {
+        0% {
+            transform: scale(0, 0);
+            opacity: 1; }
+        20% {
+            transform: scale(25, 25);
+            opacity: 1; }
+        100% {
+            opacity: 0;
+            transform: scale(40, 40); } }
+
+    .create:focus:not(:active)::after {
+        animation: ripple 1s ease-out; }
+
+    .new-item-btns {
+        text-align: right; }
+    .new-item-btns #add {
+        position: relative;
+        display: inline-block;
+        padding: 7px 22px 6px 22px;
+        font-size: 18px;
+        overflow: hidden;
+        border-width: 0;
+        outline: none;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+        background-color: #f50057;
+        color: #ecf0f1;
+        transition: background-color .3s; }
+    .new-item-btns #add:hover, .new-item-btns .add:focus {
+        background-color: #ff80ab; }
+    .new-item-btns #close {
+        display: inline-block;
+        padding: 7px 22px 6px 22px;
+        background: none;
+        border: none;
+        font-size: 18px;
+        color: #757575;
+        transition: 0.3s;
+        outline: none; }
+    .new-item-btns #close:hover {
+        color: #f50057; }
+
+    ::-webkit-scrollbar-button {
+        display: block;
+        height: 13px;
+        border-radius: 0;
+        background-color: #AAA; }
+
+    ::-webkit-scrollbar-button:hover {
+        background-color: #AAA; }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #CCC; }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #CCC; }
+
+    ::-webkit-scrollbar-track {
+        background-color: #efefef; }
+
+    ::-webkit-scrollbar-track:hover {
+        background-color: #CCC; }
+
+    ::-webkit-scrollbar {
+        width: 8px; }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: url("../img/material-wallpaper.png");
+        background-repeat: no-repeat;
+        background-size: cover; }
+
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both; }
+
+    .main {
+        position: relative;
+        width: 450px;
+        height: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+        padding-bottom: 40px;
+        border-radius: 3px;
+        background: #fafafa;
+        overflow-y: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23); }
+    .main .top-bar {
+        background: #3F51B5;
+        box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.3); }
+    .main .sidebar {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #fff;
+        transition: 0.3s;
+        width: 260px;
+        z-index: 8; }
+    .main .sidebar .sidebar-header {
+        display: block;
+        height: 68px;
+        background-color: #303F9F; }
+    .main .sidebar ul li {
+        font-size: 18px;
+        padding: 15px;
+        transition: 0.2s;
+        color: #757575;
+        width: 260px;
+        cursor: pointer; }
+    .main .sidebar ul li i {
+        position: relative;
+        display: inline-block;
+        margin: 0 20px 0 5px;
+        top: 3px;
+        font-size: 20px; }
+    .main .sidebar ul li:hover {
+        background: #3F51B5;
+        color: #fff; }
+    .main .new-item-input {
+
+        height: 100%;
+        overflow-y: scroll;
+        padding: 80px 24px 10px 24px;
+        /* active state */ }
+    .main .new-item-input .group {
+        position: relative;
+        margin-bottom: 50px; }
+    .main .new-item-input input {
+        font-size: 18px;
+        padding: 10px 10px 10px 5px;
+        display: block;
+        width: 380px;
+        border: none;
+        border-bottom: 1px solid #757575;
+        background: #fafafa; }
+    .main .new-item-input input:focus {
+        outline: none; }
+    .main .new-item-input label {
+        color: #999;
+        font-size: 18px;
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 5px;
+        top: 10px;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all; }
+    .main .new-item-input input:focus ~ label, .main .new-item-input input:valid ~ label {
+        top: -20px;
+        font-size: 14px;
+        color: #f50057; }
+    .main .new-item-input .bar {
+        position: relative;
+        display: block;
+        width: 395px; }
+    .main .new-item-input .bar:before, .main .new-item-input .bar:after {
+        content: '';
+        height: 2px;
+        width: 0;
+        bottom: 1px;
+        position: absolute;
+        background: #5264AE;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all; }
+    .main .new-item-input .bar:before {
+        left: 50%; }
+    .main .new-item-input .bar:after {
+        right: 50%; }
+    .main .new-item-input input:focus ~ .bar:before, .main .new-item-input input:focus ~ .bar:after {
+        width: 50%; }
+    .main .new-item-input .highlight {
+        position: absolute;
+        height: 60%;
+        width: 100px;
+        top: 25%;
+        left: 0;
+        pointer-events: none;
+        opacity: 0.5; }
+    .main .new-item-input input:focus ~ .highlight {
+        animation: inputHighlighter 0.3s ease; }
+
+    @keyframes inputHighlighter {
+        from {
+            background: #5264AE; }
+        to {
+            width: 0;
+            background: transparent; } }
+    .main .items-active {
+        height: 91%;
+        overflow-y: scroll;
+        padding: 0 24px 10px 24px; }
+    .main .items-active .todo-item {
+        background-color: #fff;
+        margin: 20px 0 20px 0;
+        text-wrap: normal;
+        padding: 15px;
+        cursor: default;
+
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+    .main .items-active .todo-item .todo-item-title {
+        font-size: 16px;
+        text-align: left;
+        color: #595959;
+        font-weight: bold; }
+    .main .items-active .todo-item .todo-item-text {
+        font-size: 16px;
+        line-height: 1.7;
+        max-height: 27px;
+        text-align: left;
+        color: #595959;
+        margin: 10px 0 10px 0;
+        overflow: hidden;
+        word-wrap: break-word; }
+    .main .todo-item-full-text{
+        font-size: 16px;
+        line-height: 1.7;
+        max-height: 100%;
+        min-height: 100%;
+        text-align: left;
+        color: #595959;
+        margin: 10px 0 10px 0;
+        overflow: visible;
+        word-wrap: break-word;
+    }
+    .main .items-active .todo-item .actions-time .time {
+        display: inline-block;
+        width: 67%;
+        font-size: 14px;
+        font-weight: 500;
+        color: #a4b2b5; }
+    .main .items-active .todo-item .actions-time .done-remove-btn {
+        width: 30%;
+        text-align: right;
+        display: inline-block; }
+    .main .items-active .todo-item .actions-time .done-remove-btn li {
+        display: inline-block; }
+    .main .items-active .todo-item .actions-time .done-remove-btn .complete-btn {
+        color: #4CAF50; }
+    .main .items-active .todo-item .actions-time .done-remove-btn .delete-btn {
+        color: red; }
+    .main .items-active .todo-item-completed {
+        border-color: #4CAF50;
+        opacity: 0.5;
+        transition: 0.3s; }
+
+    .items-completed {
+        height: 91%;
+        overflow-y: scroll;
+        padding: 0 24px 10px 24px; }
+    .items-completed .todo-item {
+        background-color: #fff;
+        margin: 20px 0 20px 0;
+        text-wrap: normal;
+        padding: 15px;
+        cursor: default;
+        border-right: 2px solid;
+        border-color: #f50057;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+    .items-completed .todo-item .todo-item-title {
+        font-size: 16px;
+        text-align: left;
+        color: #595959;
+        font-weight: bold; }
+    .items-completed .todo-item .todo-item-text {
+        font-size: 16px;
+        line-height: 1.5;
+        text-align: left;
+        color: #595959;
+        margin: 10px 0 10px 0; }
+    .items-completed .todo-item .actions-time .time {
+        display: inline-block;
+        width: 67%;
+        font-size: 14px;
+        font-weight: 500;
+        color: #a4b2b5; }
+    .items-completed .todo-item .actions-time .done-remove-btn {
+        width: 30%;
+        text-align: right;
+        display: inline-block; }
+    .items-completed .todo-item .actions-time .done-remove-btn li {
+        display: inline-block; }
+    .items-completed .todo-item-completed {
+        border-color: #4CAF50;
+        opacity: 0.5;
+        transition: 0.3s; }
+
+    .sidebar-open {
+        max-width: 200px;
+        position: relative;
+        left:0;
+        box-shadow: 2px 0px 5px 0px rgba(0, 0, 0, 0.3); }
+
+    .sidebar-close {
+        position: relative;
+        left:0;
+        max-width: 0; }
+
+</style>
 </head>
 <body>
 <div class="main">
