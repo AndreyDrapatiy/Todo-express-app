@@ -1,24 +1,21 @@
-var express = require('express');
+const express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var MongoClient = require('mongodb').MongoClient;
-var mongoose = require('mongoose');
+const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://root:root@ds133136.mlab.com:33136/heroku_5f0kbkt5', function (err) {
-    if (err) throw err;
-    console.log('Successfully connected');
-});
+require('./mangoose');
 
 
-var userSchema = mongoose.Schema({ // модель записи в bd
+
+var userSchema = mongoose.Schema({
+// the record model in bd
     title: String,
     content: String,
     status: String
 });
 
 var Items = mongoose.model("Items", userSchema);
-
-
 
 
 app.use(express.static(__dirname + '/public'));
@@ -36,7 +33,7 @@ app.get("/", function (req, res) {
 });
 
 
-//вывод страници нового item
+// output page of a new item
 app.get("/write", function (req, res) {
     res.render("write.ejs")
 });
@@ -57,14 +54,17 @@ app.get("/completed", function (req, res) {
     });
 });
 
-//сохранение нового item в базу/ redirect
+// save the new item to the base / redirect
 app.post("/write", function (req, res) {
 
-    var title = req.body.title;
-    var content = req.body.content;
-    var status = 'active';
+   var obj = {
+        title: req.body.title,
+        content: req.body.content,
+        status: 'active'
+    };
 
-    Items.create({title: title, content: content, status: status}, function (err) {
+
+    Items.create({title: obj.title, content: obj.content, status: obj.status}, function (err) {
         if (err) return console.log(err);
         console.log("Сохранен объект item");
     });
@@ -73,7 +73,8 @@ app.post("/write", function (req, res) {
 });
 
 
-//удление item из базы
+
+// delay item from database
 app.get("/remove/:id", function (req, res) {
 
     var id = req.params.id;
@@ -88,12 +89,15 @@ app.get("/remove/:id", function (req, res) {
 
 
 
+// delat all items from base
 app.get("/removeall", function (req, res) {
 
     Items.remove({});
     res.redirect('/');
 });
 
+
+//editing sinle item
 app.get("/edit/:id", function (req, res) {
 
     var id = req.params.id;
@@ -108,7 +112,7 @@ app.get("/edit/:id", function (req, res) {
 });
 
 
-
+//save editing
 app.post("/saveEdited/:id", function (req, res) {
 
     var id = req.params.id;
@@ -118,9 +122,9 @@ app.post("/saveEdited/:id", function (req, res) {
 
     var query = {_id: id};
 
-    var newValues = {$set: {title: title, content: content}};
+    var newItems = {$set: {title: title, content: content}};
 
-    Items.updateOne(query, newValues, function (err) {
+    Items.updateOne(query, newItems, function (err) {
         if (err) throw err;
     });
 
@@ -128,19 +132,18 @@ app.post("/saveEdited/:id", function (req, res) {
 
 });
 
-
+//saving done status in database
 app.get("/done/:id", function (req, res) {
 
     var id = req.params.id;
 
     var query = {_id: id};
 
-    var newValues = {$set: {status: "done"}};
+    var newItems = {$set: {status: "done"}};
 
-    Items.updateOne(query, newValues, function (err) {
+    Items.updateOne(query, newItems, function (err) {
         if (err) throw err;
     });
-
 
     res.redirect('/');
 });
@@ -155,7 +158,6 @@ app.get("/item/:id", function (req, res) {
             res.render('single.ejs', {result: result});
         }
     });
-
 
 });
 
